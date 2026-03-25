@@ -542,4 +542,116 @@ nav {
     right: max(15px, env(safe-area-inset-right));
     bottom: max(15px, env(safe-area-inset-bottom));
   }
+  /* ========== CORRECCIONES PARA MÓVIL (evitar desbordamiento) ========== */
+
+/* 1. Evitar scroll horizontal global */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 100%;
+  overflow-x: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* 2. Imágenes responsivas (evitar que se salgan) */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block; /* elimina espacios extra debajo */
+}
+
+.hero-image img,
+.doctor-img img,
+.slide img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* 3. Badges en móvil (que no se rompan) */
+@media (max-width: 480px) {
+  .badge-group {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+  .badge {
+    white-space: normal;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+  .hero-content h1 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
+  .hero-sub {
+    font-size: 1rem;
+  }
+}
+
+/* 4. Botón flotante WhatsApp (visible sin scroll) */
+.float-whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 54px;
+  height: 54px;
+  background-color: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.8rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 1000;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+@media (max-width: 480px) {
+  .float-whatsapp {
+    bottom: 15px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.6rem;
+  }
+}
+
+/* 5. Asegurar que el menú hamburguesa no desborde */
+@media (max-width: 900px) {
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    max-width: 100%;
+    background: var(--white);
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 30px 0;
+    box-shadow: var(--shadow-md);
+    transition: 0.3s;
+    z-index: 999;
+  }
+  .nav-links.active {
+    left: 0;
+  }
+  .menu-icon {
+    display: block;
+  }
+}
 }
